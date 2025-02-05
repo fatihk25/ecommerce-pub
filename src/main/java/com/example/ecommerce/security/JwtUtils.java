@@ -1,5 +1,6 @@
 package com.example.ecommerce.security;
 
+import com.example.ecommerce.entity.Admin;
 import com.example.ecommerce.entity.User;
 import com.example.ecommerce.utils.constant.Constants;
 import io.jsonwebtoken.Claims;
@@ -17,11 +18,22 @@ public class JwtUtils {
         return Keys.hmacShaKeyFor(Constants.JWT_SIGNATURE_SECRET.getBytes());
     }
 
-    public String generateAccessToken(User user){
+    public String generateAccessTokenUser(User user){
         Date currentDate = new Date();
         Date expirationDate = new Date(currentDate.getTime() + Constants.JWT_EXPIRATION);
         return Jwts.builder()
                 .subject(user.getEmail())
+                .issuedAt(currentDate)
+                .expiration(expirationDate)
+                .signWith(getSignKey())
+                .compact();
+    }
+
+    public String generateAccessTokenAdmin(Admin admin){
+        Date currentDate = new Date();
+        Date expirationDate = new Date(currentDate.getTime() + Constants.JWT_EXPIRATION);
+        return Jwts.builder()
+                .subject(admin.getEmail())
                 .issuedAt(currentDate)
                 .expiration(expirationDate)
                 .signWith(getSignKey())

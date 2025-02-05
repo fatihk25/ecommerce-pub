@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
 
         // Set Token
         TokenDTO tokenDTO = new TokenDTO();
-        String token = jwtUtils.generateAccessToken(user);
+        String token = jwtUtils.generateAccessTokenUser(user);
         tokenDTO.setToken(token);
 
         return new ResponseDTO<>(0, "Login Sukses", tokenDTO);
