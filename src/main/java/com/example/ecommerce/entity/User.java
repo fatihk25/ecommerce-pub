@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -17,6 +19,9 @@ public class User {
     private Long id;
 
     @Column(unique = true)
+    private String uuid;
+
+    @Column(unique = true)
     private String email;
 
     @JsonProperty("first_name")
@@ -25,7 +30,14 @@ public class User {
     @JsonProperty("last_name")
     private String lastName;
 
+    private String phone;
+
+    private String country;
+
     private String password;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @JsonProperty("profile_image")
     private String profileImage;
